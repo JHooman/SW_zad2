@@ -55,17 +55,23 @@ jobs:
           provenance: true
           push: true
           cache-from: |
-            type=registry,ref=${{ vars.DOCKERHUB_USERNAME }}/example:cache
+            type=registry,ref=${{ vars.DOCKERHUB_USERNAME }}/SW_zad2:cache
           cache-to: |
-            type=registry,ref=${{ vars.DOCKERHUB_USERNAME }}/example:cache
+            type=registry,ref=${{ vars.DOCKERHUB_USERNAME }}/SW_zad2:cache
           tags: ${{ steps.meta.outputs.tags }}
-      -
-        name: Run Trivy
-        id: trivy
-        uses: aquasecurity/trivy-action@0.28.0
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
         with:
-          format: 'table'
+          image-ref: 'docker.io/${{ vars.DOCKERHUB_USERNAME }}/SW_zad2:${{ github.sha }}'
           exit-code: '1'
-          ignore-unfixed: 'true'
+          ignore-unfixed: true
           vuln-type: 'os,library'
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'trivy-results.sarif'
           severity: 'CRITICAL,HIGH'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'trivy-results.sarif'
