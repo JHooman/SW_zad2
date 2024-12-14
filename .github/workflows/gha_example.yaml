@@ -1,4 +1,4 @@
-name: GHAction example
+name: SW_zad2
 
 on:
   workflow_dispatch:
@@ -21,7 +21,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ vars.DOCKERHUB_USERNAME }}/example
+          images: ${{ vars.DOCKERHUB_USERNAME }}/SW_zad2
           flavor: latest=false
           tags: |
             type=edge,branch=$repo.default_branch
