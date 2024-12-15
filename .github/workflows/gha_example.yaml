@@ -29,17 +29,17 @@ jobs:
           registry: ghcr.io
           username: ${{ vars.GH_USERNAME }}
           password: ${{ secrets.GH_TOKEN }}
-      - name: Docker metadata definitions
+      - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ vars.GH_USERNAME }}/sw_zad2
-          flavor: latest=false
+          images: ghcr.io/adrianw246/lekki-obraz
+          flavour: latest=false
           labels:
-            org.opencontainers.image.source="https://github.com/${{ vars.GH_USERNAME }}/sw_zad2"
+            org.opencontainers.image.source="https://github.com/adrianw246/zad2"
           tags: |
-            type=sha,priority=100,prefix=sha-,format=short
             type=semver,priority=200,pattern={{version}}
+            type=sha,priority=100,prefix=sha-,format=short
       - name: QEMU set-up
         uses: docker/setup-qemu-action@v3
       - name: Buildx set-up
