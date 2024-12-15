@@ -32,7 +32,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ vars.GH_USERNAME }}/sw_zad2
+          images: ghcr.io/${{ vars.GH_USERNAME }}/sw_zad2_trivy
           flavour: latest=false
           labels:
             org.opencontainers.image.source="https://github.com/${{ vars.GH_USERNAME }}/sw_zad2"
@@ -49,13 +49,13 @@ jobs:
           provenance: mode=max
           push: true
           cache-from: |
-            type=registry,ref=ghcr.io/${{ vars.DOCKERHUB_USERNAME }}/sw_zad2_cache:cache
+            type=registry,ref=ghcr.io/${{ vars.DOCKERHUB_USERNAME }}/sw_zad2_trivy:cache
           cache-to: |
-            type=registry,ref=ghcr.io/${{ vars.DOCKERHUB_USERNAME }}/sw_zad2_cache:cache
+            type=registry,ref=ghcr.io/${{ vars.DOCKERHUB_USERNAME }}/sw_zad2_trivy:cache
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       - name: Extract SHA Tag
-        run: echo "IMAGE_TAG=$(echo '${{ steps.meta.outputs.tags }}' | grep -o 'ghcr.io/${{ vars.GH_USERNAME }}/sw_zad2:sha-[a-f0-9]*')" >> $GITHUB_ENV
+        run: echo "IMAGE_TAG=$(echo '${{ steps.meta.outputs.tags }}' | grep -o 'ghcr.io/${{ vars.GH_USERNAME }}/sw_zad2_trivy:sha-[a-f0-9]*')" >> $GITHUB_ENV
       - name: Scan with trivy
         uses: aquasecurity/trivy-action@master
         with:
@@ -67,4 +67,4 @@ jobs:
       - name: Push Docker Image
         if: success()
         run: |
-          docker buildx imagetools create --tag ghcr.io/${{ vars.GH_USERNAME }}/sw_zad2:latest  ${{ env.IMAGE_TAG }}
+          docker buildx imagetools create --tag ghcr.io/${{ vars.GH_USERNAME }}/sw_zad2_trivy:latest  ${{ env.IMAGE_TAG }}
