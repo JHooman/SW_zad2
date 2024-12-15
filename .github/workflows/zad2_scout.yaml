@@ -66,7 +66,7 @@ jobs:
           ignore-unchanged: true
           only-fixed: true
           only-severities: critical,high
-          exit-code: false
+          exit-code: true
       - name: Push Docker Image
         if: success()
         run: |
