@@ -1,4 +1,4 @@
-name: sw_zad2
+name: sw_zad2_trivy
 
 on:
   workflow_dispatch:
@@ -32,10 +32,10 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/jhooman/sw_zad2
+          images: ghcr.io/${{ vars.GH_USERNAME }}/sw_zad2
           flavour: latest=false
           labels:
-            org.opencontainers.image.source="https://github.com/jhooman/sw_zad2"
+            org.opencontainers.image.source="https://github.com/${{ vars.GH_USERNAME }}/sw_zad2"
           tags: |
             type=semver,priority=200,pattern={{version}}
             type=sha,priority=100,prefix=sha-,format=short
@@ -55,7 +55,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       - name: Extract SHA Tag
-        run: echo "IMAGE_TAG=$(echo '${{ steps.meta.outputs.tags }}' | grep -o 'ghcr.io/jhooman/sw_zad2:sha-[a-f0-9]*')" >> $GITHUB_ENV
+        run: echo "IMAGE_TAG=$(echo '${{ steps.meta.outputs.tags }}' | grep -o 'ghcr.io/${{ vars.GH_USERNAME }}/sw_zad2:sha-[a-f0-9]*')" >> $GITHUB_ENV
       - name: Scan with trivy
         uses: aquasecurity/trivy-action@master
         with:
@@ -67,4 +67,4 @@ jobs:
       - name: Push Docker Image
         if: success()
         run: |
-          docker buildx imagetools create --tag ghcr.io/jhooman/sw_zad2:latest  ${{ env.IMAGE_TAG }}
+          docker buildx imagetools create --tag ghcr.io/${{ vars.GH_USERNAME }}/sw_zad2:latest  ${{ env.IMAGE_TAG }}
