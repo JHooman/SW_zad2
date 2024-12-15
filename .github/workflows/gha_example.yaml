@@ -16,7 +16,7 @@ jobs:
       repository-projects: write
       security-events: write
 
-    steps:
+  steps:
       -
         name: Check out the source_repo
         uses: actions/checkout@v4
