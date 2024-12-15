@@ -61,6 +61,8 @@ jobs:
           cache-to: |
             type=registry,ref=${{ vars.DOCKERHUB_USERNAME }}/sw_zad2_scout:cache
           tags: ${{ steps.meta.outputs.tags }}
+      - name: Extract SHA Tag
+        run: echo "IMAGE_TAG=$(echo '${{ steps.meta.outputs.tags }}' | grep -o 'ghcr.io/${{ vars.GH_USERNAME }}/sw_zad2_trivy:sha-[a-f0-9]*')" >> $GITHUB_ENV
       -
         name: Docker Scout
         id: docker-scout
