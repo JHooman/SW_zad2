@@ -28,7 +28,7 @@ jobs:
         with:
           images: ghcr.io/${{ vars.GITHUB_USERNAME }}/sw_lab2
           flavor: latest=false
-          labels:
+          labels: |
           org.opencontainers.image.source="https://github.com/${{ vars.GITHUB_USERNAME }}/sw_lab2"
           tags: |
             type=edge,branch=$repo.default_branch
