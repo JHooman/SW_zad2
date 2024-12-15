@@ -7,7 +7,7 @@ on:
     - 'v*'
 
 jobs:
-  ci_step:
+  build:
     name: Build, tag and push Docker image to DockerHub
     runs-on: ubuntu-latest
     permissions:
@@ -15,8 +15,7 @@ jobs:
       pull-requests: write
       repository-projects: write
       security-events: write
-
-  steps:
+    steps:
       -
         name: Check out the source_repo
         uses: actions/checkout@v4
