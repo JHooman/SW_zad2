@@ -33,10 +33,10 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/adrianw246/lekki-obraz
+          images: ghcr.io/jhooman/sw_zad2
           flavour: latest=false
           labels:
-            org.opencontainers.image.source="https://github.com/adrianw246/zad2"
+            org.opencontainers.image.source="https://github.com/jhooman/sw_zad2"
           tags: |
             type=semver,priority=200,pattern={{version}}
             type=sha,priority=100,prefix=sha-,format=short
