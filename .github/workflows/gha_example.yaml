@@ -67,7 +67,7 @@ jobs:
       - name: Run Trivy vulnerability scanner in repo mode
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          image-ref: 'docker.io/${{ steps.meta.outputs.tags }}'
+          image-ref: '${{ steps.meta.outputs.tags }}'
           format: 'table'
           exit-code: '1'
           ignore-unfixed: true
