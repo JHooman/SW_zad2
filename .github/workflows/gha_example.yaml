@@ -54,15 +54,15 @@ jobs:
           provenance: true
           push: true
           cache-from: |
-            type=registry,ref=ghcr.io/${{ vars.DOCKERHUB_USERNAME }}/sw_zad2:cache
+            type=registry,ref=ghcr.io/${{ vars.DOCKERHUB_USERNAME }}/sw_zad2_cache:cache
           cache-to: |
-            type=registry,ref=ghcr.io/${{ vars.DOCKERHUB_USERNAME }}/sw_zad2:cache
+            type=registry,ref=ghcr.io/${{ vars.DOCKERHUB_USERNAME }}/sw_zad2_cache:cache
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       - name: Scan with trivy
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: ${{ steps.meta.outputs.tags }}
+          image-ref: '$IMAGE_NAME:$IMAGE_TAG'
           severity: HIGH,CRITICAL
           exit-code: 1
           format: table
