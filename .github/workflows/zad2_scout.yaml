@@ -24,7 +24,6 @@ jobs:
           images: ${{ vars.DOCKERHUB_USERNAME }}/sw_zad2_scout
           flavor: latest=false
           tags: |
-            type=edge,branch=$repo.default_branch
             type=sha,priority=100,prefix=sha-,format=short
             type=semver,priority=200,pattern={{version}}
       -
@@ -76,4 +75,4 @@ jobs:
       - name: Push Docker Image
         if: success()
         run: |
-          docker buildx imagetools create --tag ghcr.io/${{ vars.GH_USERNAME }}/sw_zad2_scout:latest latest
+          docker buildx imagetools create --tag ghcr.io/${{ vars.GH_USERNAME }}/sw_zad2_scout:latest  ${{ env.IMAGE_TAG }}
