@@ -26,10 +26,9 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ vars.GITHUB_USERNAME }}/sw_lab2
+          images: ghcr.io/${{ vars.GH_USERNAME }}/sw_lab2
           flavor: latest=false
-          labels: |
-          org.opencontainers.image.source="https://github.com/${{ vars.GITHUB_USERNAME }}/sw_lab2"
+          labels: org.opencontainers.image.source="https://github.com/${{ vars.GH_USERNAME }}/sw_lab2"
           tags: |
             type=edge,branch=$repo.default_branch
             type=sha,priority=100,prefix=sha-,format=short
@@ -47,8 +46,8 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: ${{ vars.GITHUB_USERNAME }}
-          password: ${{secrets.GITHUB_TOKEN}}
+          username: ${{ vars.GH_USERNAME }}
+          password: ${{secrets.GH_TOKEN}}
       -
         name: Login to DockerHub
         uses: docker/login-action@v3
@@ -83,4 +82,4 @@ jobs:
       - name: Push Docker Image
           if: success()
           run: |
-              docker buildx imagetools create --tag ghcr.io/${{ vars.GITHUB_USERNAME }}/last-image:latest  ${{ steps.meta.outputs.tags }}
+              docker buildx imagetools create --tag ghcr.io/${{ vars.GH_USERNAME }}/last-image:latest  ${{ steps.meta.outputs.tags }}
