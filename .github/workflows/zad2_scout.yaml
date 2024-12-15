@@ -1,4 +1,4 @@
-name: sw_zad2_trivy
+name: sw_zad2_scout
 
 on:
   workflow_dispatch:
@@ -65,6 +65,8 @@ jobs:
           ignore-base: true
           ignore-unchanged: true
           only-fixed: true
+          only-severities: critical,high
+
       - name: Push Docker Image
         if: success()
         run: |
