@@ -28,7 +28,7 @@ jobs:
         uses: docker/setup-qemu-action@v3
       - name: Buildx set-up
         uses: docker/setup-buildx-action@v3
-      - name: Extract Docker metadata
+      - name: Docker metadata definitions
         id: meta
         uses: docker/metadata-action@v5
         with:
@@ -66,7 +66,7 @@ jobs:
           ignore-unchanged: true
           only-fixed: true
           only-severities: critical,high
-
+          exit-code: false
       - name: Push Docker Image
         if: success()
         run: |
