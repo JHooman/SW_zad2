@@ -55,7 +55,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       - name: Extract SHA Tag
-          run: echo "IMAGE_TAG=$(echo '${{ steps.meta.outputs.tags }}' | grep -o 'ghcr.io/jhooman/sw_zad2:sha-[a-f0-9]*')" >> $GITHUB_ENV
+        run: echo "IMAGE_TAG=$(echo '${{ steps.meta.outputs.tags }}' | grep -o 'ghcr.io/jhooman/sw_zad2:sha-[a-f0-9]*')" >> $GITHUB_ENV
       - name: Scan with trivy
         uses: aquasecurity/trivy-action@master
         with:
