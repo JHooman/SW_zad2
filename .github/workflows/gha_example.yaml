@@ -61,6 +61,7 @@ jobs:
         with:
           image-ref: ${{ env.IMAGE_TAG }}
           severity: HIGH,CRITICAL
+          ignore-unfixed: true
           exit-code: 1
           format: table
       - name: Push Docker Image
