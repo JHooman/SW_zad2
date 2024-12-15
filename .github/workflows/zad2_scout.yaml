@@ -74,5 +74,6 @@ jobs:
           ignore-unchanged: true
           only-fixed: true
       - name: Push Docker Image
+        if: success()
         run: |
-          docker buildx imagetools create --tag ghcr.io/${{ vars.GH_USERNAME }}/sw_zad2_scout:latest  ${{ steps.meta.outputs.tags }}
+          docker buildx imagetools create --tag ghcr.io/${{ vars.GH_USERNAME }}/sw_zad2_scout:latest  ${{ steps.meta.outputs.tags}}
