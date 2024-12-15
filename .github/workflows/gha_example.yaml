@@ -58,6 +58,8 @@ jobs:
             type=registry,ref=ghcr.io/${{ vars.DOCKERHUB_USERNAME }}/sw_zad2:cache
           cache-to: |
             type=registry,ref=ghcr.io/${{ vars.DOCKERHUB_USERNAME }}/sw_zad2:cache
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
       - name: Run Trivy vulnerability scanner in repo mode
         uses: aquasecurity/trivy-action@master
         with:
