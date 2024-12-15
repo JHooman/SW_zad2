@@ -80,6 +80,6 @@ jobs:
           ignore-unfixed: true
           severity: CRITICAL,HIGH
       - name: Push Docker Image
-          if: success()
+        if: success()
           run: |
               docker buildx imagetools create --tag ghcr.io/${{ vars.GH_USERNAME }}/last-image:latest  ${{ steps.meta.outputs.tags }}
