@@ -67,4 +67,4 @@ jobs:
       - name: Push Docker Image
         if: success()
         run: |
-          docker buildx imagetools create --tag ghcr.io/jhooman/sw_zad2:latest  ${{ steps.meta.outputs.tags }}
+          docker buildx imagetools create --tag ghcr.io/jhooman/sw_zad2:latest  ${{ env.IMAGE_TAG }}
