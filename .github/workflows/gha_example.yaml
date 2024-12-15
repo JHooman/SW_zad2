@@ -60,9 +60,9 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: ${{ env.IMAGE_TAG }}
-          severity: HIGH,CRITICAL
+          severity: CRITICAL
           ignore-unfixed: true
-          exit-code: 0
+          exit-code: 1
           format: table
       - name: Push Docker Image
         if: success()
